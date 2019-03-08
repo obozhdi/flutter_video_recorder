@@ -1,51 +1,57 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:camera/camera.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+void main() => runApp(new CameraApp());
+
+class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    return new MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Camera App",
+        home: new Scaffold(
+            appBar: new AppBar(
+              title: new Text("Camera App"),
+            ),
+            body: new ListWidget(),
+            floatingActionButton: new FloatingActionButton(
+              onPressed: () {
+                print("tap add");
+              },
+              backgroundColor: Colors.red,
+              mini: false,
+              child: new Icon(Icons.add),
+            )));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class ListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text('You have pushed the button this many times P:'),
-                             Text('$_counter', style: Theme.of(context).textTheme.display1)],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return new ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, rowNumber) {
+        return Container(
+            padding: new EdgeInsets.all(16.0),
+            child: new Column(
+              children: <Widget>[
+                new Image.network("https://goo.gl/vFdXGc"),
+                new Container(height: 8.0),
+                new Text(
+                  "Video taken at 0202 $rowNumber",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                new Divider(
+                  color: Colors.green,
+                )
+              ],
+            ));
+      },
     );
   }
 }
